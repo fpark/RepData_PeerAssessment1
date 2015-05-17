@@ -2,7 +2,6 @@
 
 
 
-
 ```r
 library(dplyr)
 library(data.table)
@@ -175,10 +174,7 @@ we <- tapply(wkend$steps, wkend$interval, mean)
 wd <- tapply(wkday$steps, wkday$interval, mean)
 
 x1 <- as.numeric(names(we))
-x2 <- as.numeric(names(wd))
 g1 <- qplot(x1,we, aes(x=interal, y=steps) )
-g2 <- qplot(x2,wd, aes(x=interal, y=steps) )
-
 g1 + geom_line()  + coord_cartesian(ylim=c(0,120))  + labs(title="Week End")
 ```
 
@@ -186,6 +182,8 @@ g1 + geom_line()  + coord_cartesian(ylim=c(0,120))  + labs(title="Week End")
 
 
 ```r
+x2 <- as.numeric(names(wd))
+g2 <- qplot(x2,wd, aes(x=interal, y=steps) )
 g2 + geom_line()  + coord_cartesian(ylim=c(0,120))  + labs(title="Week Days")
 ```
 
