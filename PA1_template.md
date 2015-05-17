@@ -160,3 +160,35 @@ abline(v=median(ds$impmean), lwd=4, col="blue")
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+
+```r
+df$isweekend <- weekdays(as.Date(df$date)) %in% c("Saturday", "Sunday")
+df$isweekend <- factor(c(TRUE,FALSE))
+
+s <- split(df,df$isweekend)
+wkend <-s$'TRUE' %>% filter(!is.na(steps))
+wkday <- s$'FALSE' %>% filter(!is.na(steps))
+
+library(ggplot2)
+we <- tapply(wkend$steps, wkend$interval, mean)
+wd <- tapply(wkday$steps, wkday$interval, mean)
+
+x1 <- as.numeric(names(we))
+x2 <- as.numeric(names(wd))
+g1 <- qplot(x1,we, aes(x=interal, y=steps) )
+g2 <- qplot(x2,wd, aes(x=interal, y=steps) )
+
+g1 + geom_line()  + coord_cartesian(ylim=c(0,120))  + labs(title="Week End")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png) 
+
+
+```r
+g2 + geom_line()  + coord_cartesian(ylim=c(0,120))  + labs(title="Week Days")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-14-1.png) 
+
+
